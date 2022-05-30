@@ -8,6 +8,7 @@ import { getTasks, getTasksFromServer } from "../../store/entities/tasks"
 import { getOsesFromServer, getOses } from "../../store/entities/oses"
 import NewComputer from "./NewComputer"
 import Computer from "./Computer"
+import "./computers.css"
 
 export default function Computers() {
   const dispatch = useDispatch()
@@ -22,10 +23,10 @@ export default function Computers() {
     dispatch(getComputersFromServer())
   }, [dispatch])
   return (
-    <div>
-      <h2>Computers</h2>
+    <div className="container">
       {!showNewPcForm && (
         <input
+          className="button button-success"
           type="button"
           value="Add New PC"
           onClick={() => setShowNewPcForm(!showNewPcForm)}
@@ -34,7 +35,9 @@ export default function Computers() {
       {showNewPcForm && (
         <NewComputer tasks={tasks} oses={oses} showForm={setShowNewPcForm} />
       )}
-      <Computer computers={computers} />
+      <div className="computers">
+        <Computer computers={computers} />
+      </div>
     </div>
   )
 }

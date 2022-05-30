@@ -8,14 +8,20 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  console.log(req.body)
   const { serviceOrder, name, tasks } = req.body
+  if (!serviceOrder || !name)
+    return res.status(400).send({ error: "SO or name cannot be empty" })
   const newComputer = new Computer({
     serviceOrder,
     name,
   })
+
+  if (tasks.length === 0)
+    return res.status(400).send({ error: "No tasks for new pc!" })
+
   const getTasks = new Promise((resolve, reject) => {
     const totalTasks = tasks.length
+
     tasks.forEach(async (task) => {
       const taskDb = await Task.findById(task.id)
       if (!taskDb)
@@ -35,7 +41,7 @@ router.post("/", async (req, res) => {
       newComputer.save()
       res.send(newComputer)
     })
-    .catch(() => res.status(400).send({ error: "Error creating computer" }))
+    .catch((e) => res.status(400).send(e))
 })
 
 module.exports = router

@@ -1,0 +1,17 @@
+.computerContainer {
+  margin: 1rem 1rem;
+  font-size: 1.1rem;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.computerContainer .text-input {
+  width: 3.1rem;
+}
+
+.computerContainer .field-seperator {
+  margin-bottom: 0.5rem;
+}

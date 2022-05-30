@@ -1,23 +1,25 @@
-const mongoose=require('mongoose')
-const task=require('./Task').schema
+const mongoose = require("mongoose")
+const task = require("./Task").schema
 
-const computerSchema=new mongoose.Schema({
-    serviceOrder:{
-        type:String,
-        required:true
-    },
-    name:{
-        type: String,
-        required:true
-    },
-    completed:{
-        type:Boolean,
-        default:false,
-        required:true
-    },
-    tasks:[task]
+const computerSchema = new mongoose.Schema({
+  serviceOrder: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
+  tasks: [task],
 })
 
-const computerModel=mongoose.model('computer',computerSchema)
+computerSchema.set("timestamps", true)
 
-module.exports={model:computerModel,schema:computerSchema}
+const computerModel = mongoose.model("computer", computerSchema)
+
+module.exports = { model: computerModel, schema: computerSchema }

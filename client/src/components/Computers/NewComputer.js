@@ -8,7 +8,7 @@ export default function NewComputer(props) {
   const [name, setName] = useState("John Doe")
   const [so, setSo] = useState("872")
   const [tasks, setTasks] = useState([])
-  const [windows, setWindows] = useState(props.oses[0] || "")
+  const [windows, setWindows] = useState(props.oses[0].name || "")
   const [avSerial, setAvSerial] = useState("")
   const [other, setOther] = useState("")
 
@@ -28,6 +28,12 @@ export default function NewComputer(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const tempTask = structuredClone(tasks)
+    tasks.sort((t1, t2) => {
+      if (t1.weight > t2.weight) return -1
+      if (t1.weight < t2.weight) return 1
+      return 0
+    })
     dispatch(
       addComputer({
         serviceOrder: so,
@@ -38,6 +44,7 @@ export default function NewComputer(props) {
         tasks: tasks.filter((t) => t.checked),
       })
     )
+    props.showForm(false)
   }
 
   return (
@@ -46,6 +53,7 @@ export default function NewComputer(props) {
         <div className="form-field">
           <label className="form-label">SO:</label>
           <input
+            className="text-input"
             type="text"
             placeholder="00872XXXXXXXXXX"
             value={so}
@@ -55,6 +63,7 @@ export default function NewComputer(props) {
         <div className="form-field">
           <label className="form-label">Name:</label>
           <input
+            className="text-input"
             type="text"
             placeholder="John Doe"
             value={name}
@@ -68,7 +77,7 @@ export default function NewComputer(props) {
           {tasks.map((t) => (
             <div key={t._id}>
               <input
-                className="form-checkbox"
+                className="checkbox"
                 type="checkbox"
                 checked={t.checked}
                 onChange={() => handleCheckBoxChange(t._id)}
@@ -88,6 +97,7 @@ export default function NewComputer(props) {
               )}
               {t.name === "AV" && (
                 <input
+                  className="text-input"
                   type="text"
                   placeholder="Serial Key"
                   value={avSerial}
@@ -96,6 +106,7 @@ export default function NewComputer(props) {
               )}
               {t.name === "Other" && (
                 <input
+                  className="text-input"
                   type="text"
                   placeholder="What needs to be done..."
                   value={other}
@@ -106,9 +117,13 @@ export default function NewComputer(props) {
           ))}
         </div>
         <div className="form-field">
-          <input className="form-button" type="submit" value="Add new PC" />
           <input
-            className="form-button"
+            className="button button-success"
+            type="submit"
+            value="Add new PC"
+          />
+          <input
+            className="button button-fail"
             type="button"
             value="Cancel"
             onClick={() => props.showForm(false)}

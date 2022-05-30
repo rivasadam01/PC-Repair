@@ -1,6 +1,7 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit"
 import moment from "moment"
 import { apiCallBegan } from "./../actions/api"
+import sortByWeight from "./../../utils/sortByWeight"
 
 const url = "/computer"
 
@@ -16,7 +17,11 @@ const slice = createSlice({
       const index = computers.list.findIndex(
         (computer) => computer._id === action.payload._id
       )
-      if (index === -1) computers.list.push(action.payload)
+      if (index === -1) {
+        action.payload.createdAt = Date.now()
+        sortByWeight(action.payload.tasks)
+        computers.list.push(action.payload)
+      }
     },
     addingComputerFailed: (computers, action) => {},
     requestingComputers: (computers, action) => {
@@ -26,12 +31,8 @@ const slice = createSlice({
       computers.list = action.payload
       computers.list.forEach((computer) => {
         const tempTask = structuredClone(computer.tasks)
-        tempTask.sort((t1, t2) => {
-          if (t1.weight > t2.weight) return -1
-          if (t1.weight < t2.weight) return 1
-          return 0
-        })
-        computer.tasks = tempTask
+
+        computer.tasks = sortByWeight(tempTask)
       })
     },
     requestingComputersFailed: (computers, action) => {

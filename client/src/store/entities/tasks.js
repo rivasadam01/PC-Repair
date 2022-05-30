@@ -15,13 +15,7 @@ const slice = createSlice({
       tasks.lastUpdate = Date.now()
     },
     tasksRecieved: (tasks, action) => {
-      const tempArray = [...action.payload]
-      tempArray.sort((t1, t2) => {
-        if (t1.weight > t2.weight) return -1
-        if (t1.weight < t2.weight) return 1
-        return 0
-      })
-      tasks.list = tempArray
+      tasks.list = action.payload
     },
     tasksRequestFailed: (tasks, action) => {
       tasks.lastUpdate = null
