@@ -1,0 +1,33 @@
+form {
+  margin-bottom: 2rem;
+}
+
+form .form-field {
+  display: flex;
+}
+form .form-field:last-child {
+  margin-top: 1rem;
+}
+
+form .form-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+form .form-checkbox {
+  margin-bottom: 0.5rem;
+}
+
+form .no-flex {
+  display: block;
+}
+
+form .ml-2 {
+  margin-left: 2rem;
+}
+
+form .form-button {
+  width: 6rem;
+  height: 2.5rem;
+  margin: 0 0 0 1rem;
+}
