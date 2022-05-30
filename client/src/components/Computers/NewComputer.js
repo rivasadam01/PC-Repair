@@ -83,7 +83,7 @@ export default function NewComputer(props) {
                 onChange={() => handleCheckBoxChange(t._id)}
               />
               {t.name}
-              {t.name === "Restore" && (
+              {t.checked && t.name === "Restore" && (
                 <select
                   value={windows}
                   onChange={(e) => setWindows(e.currentTarget.value)}
@@ -95,7 +95,7 @@ export default function NewComputer(props) {
                   ))}
                 </select>
               )}
-              {t.name === "AV" && (
+              {t.checked && t.name === "AV" && (
                 <input
                   className="text-input"
                   type="text"
@@ -104,7 +104,7 @@ export default function NewComputer(props) {
                   onChange={(e) => setAvSerial(e.currentTarget.value)}
                 ></input>
               )}
-              {t.name === "Other" && (
+              {t.checked && t.name === "Other" && (
                 <input
                   className="text-input"
                   type="text"

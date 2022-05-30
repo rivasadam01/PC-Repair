@@ -33,7 +33,7 @@ export default function Computer({ computers }) {
               <Fragment key={task._id}>
                 <input className="checkbox" type="checkbox" />
                 {task.name}
-                {task.notes && <label> {task.notes}</label>}
+                {task.notes && <span> {task.notes}</span>}
                 {task.name === "DB" && (
                   <input className="text-input" type="text" />
                 )}
